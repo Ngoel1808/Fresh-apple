@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AppleFresh - Farm to Table Fresh Apples</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-green: #15803d;
+      --primary-hover: #166534;
+      --dark-green: #0d3824;
+      --light-green-bg: #f2f8f4;
+      --accent-red: #dc2626;
+      --text-dark: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 12px rgba(13,56,36,0.08);
+      --shadow-lg: 0 12px 28px rgba(13,56,36,0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --radius-full: 9999px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { color-scheme: light; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: var(--text-dark);
+      background-color: #fbfdfc;
+      line-height: 1.6;
+      overflow-x: hidden;
+      color-scheme: light;
+    }
+
+    h1, h2, h3, h4, .brand-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      color: var(--dark-green);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* --- TOP OWNER BANNER (ONLY ACTIVE AFTER ENTERING NAMAN) --- */
+    .owner-banner {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 10px 20px;
+      font-size: 0.88rem;
+      border-bottom: 2px solid #f59e0b;
+      display: none;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .owner-banner.active {
+      display: flex !important;
+    }
+    .owner-banner-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .owner-tag {
+      background: #f59e0b;
+      color: #000;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      font-weight: 800;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .owner-banner-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .btn-owner-action {
+      background: #334155;
+      color: #fff;
+      border: 1px solid #475569;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-owner-action:hover { background: #475569; }
+    .btn-owner-action.highlight { background: #15803d; border-color: #22c55e; }
+    .btn-owner-action.logout { background: #dc2626; border-color: #ef4444; }
+
+    /* --- TOP ANNOUNCEMENT BAR --- */
+    .announcement-bar {
+      background-color: #082417;
+      color: #bbf7d0;
+      font-size: 0.82rem;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .bar-content i {
+      color: #4ade80;
+      margin-right: 5px;
+    }
+    .owner-login-link {
+      background: rgba(255,255,255,0.12);
+      color: #fef08a;
+      padding: 3px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .owner-login-link:hover {
+      background: rgba(255,255,255,0.25);
+      color: #ffffff;
+    }
+
+    /* --- NAVIGATION HEADER --- */
+    .main-header {
+      background: #ffffff;
+      border-bottom: 1px solid #edf2f0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    }
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 72px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .apple-icon { font-size: 2rem; line-height: 1; }
+    .logo-text { display: flex; flex-direction: column; }
+    .brand-name {
+      font-size: 1.45rem;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      color: var(--dark-green);
+    }
+    .tagline {
+      font-size: 0.72rem;
+      color: var(--primary-green);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .nav-menu { display: flex; gap: 32px; align-items: center; }
+    .nav-link {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #334155;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--primary-green); }
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-green);
+      border-radius: 2px;
+    }
+    .header-actions { display: flex; align-items: center; gap: 12px; }
+    .icon-btn {
+      background: #f1f5f3;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      color: var(--dark-green);
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .icon-btn:hover { background: #e2ede6; color: var(--primary-green); }
+    .cart-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: var(--accent-red);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: bold;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid white;
+    }
+
+    /* --- BUTTONS --- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 600;
+      padding: 11px 22px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+      border: none;
+    }
+    .btn-primary {
+      background-color: var(--primary-green);
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(21, 128, 61, 0.25);
+    }
+    .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-1px); }
+    .btn-whatsapp {
+      background-color: #25d366;
+      color: #ffffff;
+      box-shadow: 0 4px 10px rgba(37, 211, 102, 0.25);
+    }
+    .btn-whatsapp:hover { background-color: #20bd5a; transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary-green);
+      border: 1.5px solid var(--primary-green);
+    }
+    .btn-outline:hover { background: var(--light-green-bg); }
+    .btn-secondary { background: #e2e8f0; color: #334155; }
+    .btn-secondary:hover { background: #cbd5e1; }
+    .btn-full { width: 100%; }
+    .btn-large { padding: 14px 28px; font-size: 1.05rem; }
+
+    /* --- PAGE VIEW CONTROLLER --- */
+    .page-view { display: none; animation: fadeIn 0.3s ease; }
+    .page-view.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- HERO --- */
+    .hero-section {
+      background: linear-gradient(135deg, #f4fbf6 0%, #e8f5ec 100%);
+      padding: 60px 0 80px;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      align-items: center;
+      gap: 40px;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #dcfce7;
+      color: #15803d;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .hero-title { font-size: 3.2rem; line-height: 1.15; margin-bottom: 18px; color: var(--dark-green); }
+    .hero-title .highlight { color: var(--primary-green); }
+    .hero-desc { font-size: 1.12rem; color: #475569; margin-bottom: 30px; max-width: 520px; }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-image-wrap { position: relative; text-align: center; }
+    .hero-img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      object-fit: cover;
+      height: 380px;
+      border: 4px solid #ffffff;
+    }
+    .floating-badge {
+      position: absolute;
+      bottom: -15px;
+      left: 30px;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+    .floating-badge strong { display: block; font-size: 0.95rem; color: var(--dark-green); }
+    .floating-badge span { font-size: 0.78rem; color: var(--primary-green); font-weight: 600; }
+    .badge-emoji { font-size: 1.8rem; }
+
+    /* --- TRUST FEATURES --- */
+    .trust-features {
+      padding: 36px 0;
+      background: #ffffff;
+      border-bottom: 1px solid #eef3f0;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .feature-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: #fafdfb;
+      border: 1px solid #edf4f0;
+    }
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: #e8f7ee;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+    .feature-info h4 { font-size: 0.95rem; margin-bottom: 2px; color: var(--dark-green); }
+    .feature-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+    /* --- POPULAR SECTION --- */
+    .popular-section { padding: 60px 0; }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 36px;
+    }
+    .section-title { font-size: 2.1rem; color: var(--dark-green); margin-bottom: 6px; }
+    .section-sub { color: var(--text-muted); font-size: 1rem; }
+
+    /* --- PRODUCT CARDS --- */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: #ffffff;
+      border: 1px solid #e9f0ec;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: #cbdad1;
+    }
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #15803d;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      z-index: 2;
+    }
+    .btn-delete-product {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #dc2626;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.8rem;
+      z-index: 10;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(220,38,38,0.35);
+    }
+    .btn-delete-product:hover {
+      background: #b91c1c;
+      transform: scale(1.12);
+    }
+    .product-thumb {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      background: #f8faf8;
+      cursor: pointer;
+    }
+    .product-info {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .product-name {
+      font-size: 1.12rem;
+      color: var(--dark-green);
+      margin-bottom: 4px;
+      cursor: pointer;
+    }
+    .product-rating {
+      font-size: 0.8rem;
+      color: #f59e0b;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .product-rating .count { color: var(--text-muted); }
+
+    .product-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      margin-bottom: 14px;
+    }
+    .product-price-row.owner-edit-box {
+      background: #f8faf8;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      border: 2px dashed #f59e0b;
+    }
+    .price-tag {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--dark-green);
+    }
+    .price-inline-input {
+      width: 78px;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0d3824 !important;
+      background: #ffffff !important;
+      border: 2px solid #15803d !important;
+      border-radius: 6px;
+      padding: 2px 6px;
+      outline: none;
+      color-scheme: light;
+      -webkit-appearance: none;
+    }
+    .price-inline-input:focus {
+      background: #f0fdf4 !important;
+      box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.3);
+    }
+    .unit-tag {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+    .stock-badge-toggle {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      border: none;
+    }
+    .stock-badge-toggle.in-stock { background: #dcfce7; color: #15803d; }
+    .stock-badge-toggle.out-stock { background: #fee2e2; color: #dc2626; }
+    .customer-sold-out {
+      color: #ef4444;
+      font-weight: 700;
+      font-size: 0.82rem;
+    }
+
+    .btn-add-cart {
+      background: var(--primary-green);
+      color: white;
+      border: none;
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.9rem;
+      width: 100%;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-add-cart:hover { background: var(--primary-hover); }
+    .btn-add-cart.out-of-stock { background: #94a3b8; cursor: not-allowed; }
+
+    /* --- BANNER CTA --- */
+    .banner-cta { padding: 40px 0 70px; }
+    .banner-inner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-image: url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      padding: 50px 40px;
+      box-shadow: var(--shadow-lg);
+    }
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(13,56,36,0.88) 0%, rgba(13,56,36,0.65) 60%, rgba(13,56,36,0.3) 100%);
+    }
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      max-width: 580px;
+      color: #ffffff;
+    }
+    .banner-text h2 { color: #ffffff; font-size: 2.3rem; line-height: 1.2; margin-bottom: 12px; }
+    .banner-text p { font-size: 1.05rem; color: #e2f2e7; margin-bottom: 24px; }
+
+    /* --- SHOP CATALOG VIEW --- */
+    .shop-hero {
+      background: #e8f5ec;
+      padding: 36px 0;
+      border-bottom: 1px solid #d5eadc;
+      text-align: center;
+    }
+    .shop-hero h1 { font-size: 2.4rem; margin-bottom: 6px; }
+    .shop-hero p { color: #475569; }
+    .breadcrumbs { margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); }
+    .breadcrumbs span { cursor: pointer; }
+    .breadcrumbs span:hover { color: var(--primary-green); }
+
+    .shop-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+    .shop-sidebar {
+      background: #ffffff;
+      border: 1px solid #edf4f0;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      height: fit-content;
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-box h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #eef5f1;
+      padding-bottom: 10px;
+    }
+    .filter-group { margin-bottom: 24px; }
+    .filter-group h4 { font-size: 0.95rem; margin-bottom: 12px; color: #334155; }
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: #475569;
+      cursor: pointer;
+    }
+    .filter-option input {
+      accent-color: var(--primary-green);
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+    .catalog-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #eef3f0;
+    }
+    .catalog-toolbar span { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); }
+    .sort-control { display: flex; align-items: center; gap: 8px; }
+    .sort-control select {
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: white;
+      font-family: inherit;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    /* --- ABOUT & CONTACT --- */
+    .about-container, .contact-container { padding: 60px 20px; }
+    .about-hero, .contact-header { text-align: center; margin-bottom: 45px; }
+    .about-hero h2, .contact-header h2 { font-size: 2.5rem; margin-bottom: 8px; }
+    .about-hero .lead, .contact-header p { font-size: 1.1rem; color: var(--text-muted); }
+    .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; }
+    .about-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 25px 0; }
+    .stat-card {
+      background: #f4faf6;
+      border: 1px solid #e1efe6;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-icon { font-size: 1.4rem; color: var(--primary-green); margin-bottom: 6px; }
+    .stat-card strong { font-size: 1.1rem; color: var(--dark-green); }
+    .stat-card span { font-size: 0.8rem; color: var(--text-muted); }
+    .story-box {
+      background: #fafdfb;
+      border-left: 4px solid var(--primary-green);
+      padding: 18px 22px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin-top: 20px;
+    }
+    .about-gallery { display: flex; flex-direction: column; gap: 20px; }
+    .rounded-img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+    .rounded-img.secondary { height: 200px; }
+
+    /* Contact panel */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; }
+    .contact-info-panel {
+      background: #fafcfb;
+      border: 1px solid #edf4f0;
+      padding: 30px;
+      border-radius: var(--radius-lg);
+    }
+    .info-item { display: flex; gap: 16px; margin-bottom: 24px; }
+    .info-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #e6f6ec;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .contact-photo-card {
+      margin-top: 30px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      position: relative;
+    }
+    .contact-photo-card img { width: 100%; height: 180px; object-fit: cover; display: block; }
+    .photo-caption {
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      background: rgba(13,56,36,0.85);
+      color: white;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+    }
+    .contact-form-panel {
+      background: #ffffff;
+      border: 1px solid #edf4f0;
+      padding: 36px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border 0.2s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--primary-green);
+      box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.12);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ==============================================================
+       MODALS & DRAWERS
+       ============================================================== */
+    .modal-overlay, .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open, .drawer-overlay.open { display: flex !important; }
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 32px;
+      position: relative;
+      box-shadow: var(--shadow-lg);
+      animation: zoomIn 0.25s ease;
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.96); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close, .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .modal-close:hover, .close-btn:hover { color: var(--accent-red); }
+
+    /* PASSWORD MODAL */
+    .password-modal-box {
+      max-width: 440px;
+      text-align: center;
+      padding: 36px 30px;
+      border-top: 6px solid var(--primary-green);
+    }
+    .pwd-icon-circle {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      background: #e8f5ec;
+      color: var(--primary-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 16px;
+    }
+    .pwd-input-wrap {
+      margin: 20px 0;
+      position: relative;
+    }
+    .pwd-input-wrap input {
+      font-size: 1.25rem;
+      text-align: center;
+      letter-spacing: 3px;
+      font-weight: 700;
+      padding: 12px;
+    }
+    .pwd-error {
+      color: #ef4444;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* PDP inside Modal */
+    .pdp-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 32px; }
+    .pdp-main-img-wrap {
+      width: 100%;
+      height: 310px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid #eef4f0;
+      background: #fafdfa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pdp-main-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .pdp-thumbnails { display: flex; gap: 10px; margin-top: 12px; }
+    .pdp-thumb {
+      width: 65px;
+      height: 65px;
+      border-radius: 8px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.7;
+    }
+    .pdp-thumb.active, .pdp-thumb:hover { border-color: var(--primary-green); opacity: 1; }
+    .pdp-variety-tag {
+      display: inline-block;
+      background: #eaf6ee;
+      color: var(--primary-green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 8px;
+    }
+    .pdp-details h2 { font-size: 1.9rem; margin-bottom: 6px; }
+    .pdp-price-row { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+    .pdp-price { font-size: 1.6rem; font-weight: 800; color: var(--dark-green); }
+    .pdp-rating .stars { color: #f59e0b; }
+    .pdp-rating .rating-text { font-size: 0.85rem; color: var(--text-muted); }
+    .pdp-desc { font-size: 0.92rem; color: #475569; margin-bottom: 16px; }
+    .pdp-bullets { list-style: none; margin-bottom: 20px; }
+    .pdp-bullets li {
+      font-size: 0.88rem;
+      color: #334155;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pdp-bullets i { color: var(--primary-green); }
+    .pdp-selection { margin-bottom: 20px; }
+    .pdp-selection label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 6px; }
+    .pdp-selection select {
+      width: 100%;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      font-size: 0.95rem;
+    }
+    .pdp-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .pdp-trust-row {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid #edf4f0;
+      padding-top: 16px;
+      font-size: 0.78rem;
+      color: #64748b;
+    }
+    .pdp-trust-row i { color: var(--primary-green); margin-right: 4px; }
+
+    /* Cart Drawer */
+    .drawer-panel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      max-width: 420px;
+      background: #ffffff;
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      animation: slideInRight 0.25s ease;
+    }
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    .drawer-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #edf3f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-header h3 {
+      font-size: 1.25rem;
+      color: var(--dark-green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cart-items-list { flex-grow: 1; overflow-y: auto; padding: 20px 24px; }
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #f1f5f3;
+    }
+    .cart-item-img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+    .cart-item-info { flex-grow: 1; }
+    .cart-item-title { font-weight: 700; font-size: 0.95rem; color: var(--dark-green); }
+    .cart-item-price { font-size: 0.85rem; color: var(--text-muted); }
+    .qty-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+    .qty-btn {
+      width: 24px;
+      height: 24px;
+      background: #f1f5f3;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .qty-val { font-size: 0.88rem; font-weight: 600; }
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 5px;
+    }
+    .cart-item-remove:hover { color: var(--accent-red); }
+    .drawer-footer {
+      padding: 20px 24px;
+      border-top: 1px solid #edf3f0;
+      background: #fafdfb;
+    }
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    .summary-line.total {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark-green);
+      border-top: 1px dashed #d5e4dc;
+      padding-top: 10px;
+      margin-top: 10px;
+      margin-bottom: 18px;
+    }
+
+    /* Checkout Modal */
+    .checkout-box { max-width: 900px; }
+    .checkout-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 32px; }
+    .checkout-form-col h3 {
+      font-size: 1.3rem;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .payment-heading { margin-top: 24px; }
+    .payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .payment-card {
+      border: 1.5px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .payment-card.selected, .payment-card:hover {
+      border-color: var(--primary-green);
+      background: #f5fbf7;
+    }
+    .payment-card input { accent-color: var(--primary-green); }
+    .pay-details { display: flex; flex-direction: column; }
+    .pay-name { font-weight: 600; font-size: 0.95rem; color: var(--dark-green); }
+    .pay-hint { font-size: 0.78rem; color: var(--text-muted); }
+
+    .checkout-summary-col {
+      background: #f8faf8;
+      border: 1px solid #edf4f0;
+      padding: 24px;
+      border-radius: var(--radius-md);
+      height: fit-content;
+    }
+    .checkout-item-preview { max-height: 250px; overflow-y: auto; margin: 16px 0; }
+    .chk-item-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.88rem;
+      padding: 8px 0;
+      border-bottom: 1px solid #eef3f0;
+    }
+    .checkout-totals .line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    .checkout-totals .line.total {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--dark-green);
+      border-top: 1px solid #e2ece6;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+
+    /* Success Modal */
+    .success-box { max-width: 520px; padding: 40px 30px; text-align: center; }
+    .success-icon { font-size: 3.5rem; color: var(--primary-green); margin-bottom: 16px; }
+    .order-id-badge {
+      display: inline-block;
+      background: #eaf6ee;
+      color: var(--primary-green);
+      padding: 8px 18px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      margin: 16px 0 20px;
+      font-size: 1.05rem;
+    }
+    .whatsapp-dispatch-card {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .whatsapp-dispatch-card h4 {
+      color: var(--dark-green);
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+    .whatsapp-dispatch-card p {
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
+    /* OWNER ADMIN MODAL */
+    .admin-modal-box {
+      max-width: 960px;
+      border-top: 6px solid #f59e0b;
+    }
+    .admin-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    .admin-title-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    .admin-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      overflow-x: auto;
+    }
+    .admin-tab-btn {
+      background: none;
+      border: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #64748b;
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .admin-tab-btn.active {
+      background: #eef5f1;
+      color: var(--primary-green);
+      font-weight: 700;
+    }
+    .tab-badge {
+      background: var(--primary-green);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    .admin-table th, .admin-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.88rem;
+    }
+    .admin-table th { background: #f8fafc; color: #475569; font-weight: 700; }
+    .admin-price-input {
+      width: 90px;
+      padding: 6px 10px;
+      border: 2px solid #cbd5e1;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark-green);
+    }
+
+    /* Order status pill */
+    .status-badge {
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: inline-block;
+    }
+    .status-badge.pending { background: #fef3c7; color: #92400e; }
+    .status-badge.dispatched { background: #e0f2fe; color: #0369a1; }
+    .status-badge.delivered { background: #dcfce7; color: #15803d; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--dark-green);
+      color: white;
+      padding: 14px 24px;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 5px solid #22c55e;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* FOOTER */
+    .main-footer {
+      background-color: var(--dark-green);
+      color: #e2f2e8;
+      padding: 60px 0 20px;
+      border-top: 4px solid var(--primary-green);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 { color: #ffffff; font-size: 1.15rem; margin-bottom: 18px; }
+    .logo.light .brand-name { color: #ffffff; }
+    .logo.light .tagline { color: #86efac; }
+    .footer-desc { font-size: 0.88rem; color: #cbdad1; margin-top: 14px; max-width: 320px; }
+    .footer-links, .footer-contact { list-style: none; }
+    .footer-links li, .footer-contact li { margin-bottom: 10px; font-size: 0.9rem; }
+    .footer-links a { color: #cbdad1; transition: color 0.2s; }
+    .footer-links a:hover { color: #86efac; }
+    .footer-contact li { display: flex; align-items: center; gap: 10px; color: #cbdad1; }
+    .footer-contact i { color: #4ade80; }
+    .social-links { display: flex; gap: 12px; margin-bottom: 16px; }
+    .social-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+    .social-icon:hover { background: var(--primary-green); transform: translateY(-2px); }
+    .fresh-tag { font-size: 0.8rem; color: #86efac; font-weight: 600; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 20px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+    .bottom-row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+    @media (max-width: 992px) {
+      .hero-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero-title { font-size: 2.5rem; }
+      .hero-desc { margin: 0 auto 30px; }
+      .hero-ctas { justify-content: center; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .shop-layout { grid-template-columns: 1fr; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .pdp-layout, .checkout-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-menu { display: none; }
+      .features-grid, .footer-grid { grid-template-columns: 1fr; }
+      .announcement-bar { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .owner-banner { flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================== -->
+  <!-- OWNER BANNER: ONLY VISIBLE AFTER ENTERING PASSWORD NAMAN -->
+  <!-- ============================================================== -->
+  <div class="owner-banner" id="owner-banner">
+    <div class="owner-banner-left">
+      <span class="owner-tag"><i class="fa-solid fa-lock-open"></i> Owner Mode: Active</span>
+      <span>👋 Welcome Naman! You have <strong id="owner-order-count">0</strong> total orders received.</span>
+    </div>
+    <div class="owner-banner-actions">
+      <button class="btn-owner-action highlight" onclick="openOwnerDashboard('orders')"><i class="fa-solid fa-box"></i> View Orders</button>
+      <button class="btn-owner-action" onclick="openOwnerDashboard('prices')"><i class="fa-solid fa-sliders"></i> Full Dashboard</button>
+      <button class="btn-owner-action logout" onclick="lockOwnerMode()"><i class="fa-solid fa-lock"></i> Exit & Lock</button>
+    </div>
+  </div>
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <div class="container bar-content">
+      <span><i class="fa-solid fa-leaf"></i> 100% Organic & Handpicked Fresh from Himalayan Orchards</span>
+      <div>
+        <span style="margin-right: 15px;"><i class="fa-solid fa-truck-fast"></i> Free Delivery above ₹<span class="trust-threshold">499</span></span>
+        <span class="owner-login-link" id="top-owner-login-btn" onclick="triggerOwnerAccess()">
+          <i class="fa-solid fa-key"></i> Owner Login
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="main-header">
+    <div class="container header-container">
+      <div class="logo" onclick="navigateTo('home')">
+        <span class="apple-icon">🍎</span>
+        <div class="logo-text">
+          <span class="brand-name" id="brand-title">AppleFresh</span>
+          <span class="tagline">Farm to Table Fresh</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu" id="main-nav">
+        <a href="#home" class="nav-link active" onclick="navigateTo('home', event)">Home</a>
+        <a href="#shop" class="nav-link" onclick="navigateTo('shop', event)">Shop Apples</a>
+        <a href="#about" class="nav-link" onclick="navigateTo('about', event)">About Us</a>
+        <a href="#contact" class="nav-link" onclick="navigateTo('contact', event)">Contact</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="icon-btn search-trigger" onclick="focusSearch()" title="Search Apples">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <button class="icon-btn cart-trigger" onclick="openCart()" title="View Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-badge" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main id="app-root">
+
+    <!-- 1. HOME VIEW -->
+    <section id="view-home" class="page-view active">
+      <section class="hero-section">
+        <div class="container hero-grid">
+          <div class="hero-content">
+            <div class="badge-pill">
+              <i class="fa-solid fa-check-circle"></i> 100% Fresh • Premium Quality • Farm to Home
+            </div>
+            <h1 class="hero-title">Fresh Apples,<br><span class="highlight">Straight to Your Door</span></h1>
+            <p class="hero-desc">
+              Premium-quality, naturally ripened apples carefully selected from lush Himalayan orchards and delivered crisp & fresh to your doorstep.
+            </p>
+            <div class="hero-ctas">
+              <button class="btn btn-primary" onclick="navigateTo('shop')">
+                <i class="fa-solid fa-cart-shopping"></i> Shop Now
+              </button>
+              <a href="#" id="hero-wa-link" target="_blank" class="btn btn-whatsapp">
+                <i class="fa-brands fa-whatsapp"></i> Order on WhatsApp
+              </a>
+            </div>
+          </div>
+          <div class="hero-image-wrap">
+            <img src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=900&q=80" alt="Fresh red apples in basket" class="hero-img">
+            <div class="floating-badge">
+              <span class="badge-emoji">🍎</span>
+              <div>
+                <strong>Handpicked Today</strong>
+                <span>Guaranteed Sweet & Crunchy</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRUST FEATURES -->
+      <section class="trust-features">
+        <div class="container features-grid">
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-apple-whole"></i></div>
+            <div class="feature-info">
+              <h4>Fresh & Quality Checked</h4>
+              <p>Graded and hand-sorted individually</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="feature-info">
+              <h4>Fast Local Delivery</h4>
+              <p>Direct from orchard to your doorstep</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-box-open"></i></div>
+            <div class="feature-info">
+              <h4>Hygienic Packaging</h4>
+              <p>Cushioned trays to prevent bruising</p>
+            </div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="feature-info">
+              <h4>Easy & Safe Payment</h4>
+              <p>UPI, Cards, and Cash on Delivery</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- POPULAR SECTION -->
+      <section class="popular-section">
+        <div class="container">
+          <div class="section-header">
+            <div>
+              <h2 class="section-title">Our Popular Apples</h2>
+              <p class="section-sub" id="popular-sub">Choose from a variety of fresh and premium apple varieties.</p>
+            </div>
+            <button class="btn btn-outline" onclick="navigateTo('shop')">View All Varieties &rarr;</button>
+          </div>
+
+          <div class="product-grid" id="home-product-grid"></div>
+        </div>
+      </section>
+
+      <!-- BANNER CTA -->
+      <section class="banner-cta">
+        <div class="container banner-inner">
+          <div class="banner-overlay"></div>
+          <div class="banner-text">
+            <h2>Good Food Brings People Together</h2>
+            <p>Fresh apples for a healthier you. Sourced with care from Himalayan growers.</p>
+            <button class="btn btn-primary btn-large" onclick="navigateTo('shop')">Shop Now</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- 2. SHOP CATALOG VIEW -->
+    <section id="view-shop" class="page-view">
+      <div class="shop-hero">
+        <div class="container">
+          <h1>Shop Our Fresh Apples</h1>
+          <p>Handpicked, farm-fresh, and full of natural goodness.</p>
+          <div class="breadcrumbs">
+            <span onclick="navigateTo('home')">Home</span> &gt; <span>Shop Apples</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="container shop-layout">
+        <aside class="shop-sidebar">
+          <div class="filter-box">
+            <h3>Filter By</h3>
+
+            <div class="filter-group">
+              <h4>Price Range</h4>
+              <label class="filter-option">
+                <input type="radio" name="price-filter" value="all" checked onchange="applyFilters()">
+                <span>All Prices</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="price-filter" value="under-100" onchange="applyFilters()">
+                <span>Under ₹100 / kg</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="price-filter" value="100-150" onchange="applyFilters()">
+                <span>₹100 - ₹150 / kg</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="price-filter" value="150-200" onchange="applyFilters()">
+                <span>₹150 - ₹200 / kg</span>
+              </label>
+              <label class="filter-option">
+                <input type="radio" name="price-filter" value="above-200" onchange="applyFilters()">
+                <span>Above ₹200 / kg</span>
+              </label>
+            </div>
+
+            <div class="filter-group">
+              <h4>Apple Variety</h4>
+              <div id="variety-filters-container"></div>
+            </div>
+
+            <button class="btn btn-secondary btn-full" onclick="resetFilters()">Reset Filters</button>
+          </div>
+        </aside>
+
+        <div class="shop-content">
+          <div class="catalog-toolbar">
+            <span id="product-count-label">Showing all apples</span>
+            <div class="sort-control">
+              <label for="sort-select">Sort By:</label>
+              <select id="sort-select" onchange="applyFilters()">
+                <option value="popularity">Popularity</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Customer Rating</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="product-grid" id="shop-product-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. ABOUT US VIEW -->
+    <section id="view-about" class="page-view">
+      <div class="container about-container">
+        <div class="about-hero">
+          <h2>About AppleFresh</h2>
+          <p class="lead">Enjoy our farm's fresh harvest straight to your home.</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text">
+            <p>At AppleFresh, we believe in bringing you the purest and freshest apples, directly hand-harvested from high-altitude orchards in Himachal and Kashmir.</p>
+            <p>Our mission is to provide high-quality, naturally grown apples while supporting local farming communities and promoting a healthy lifestyle.</p>
+            
+            <div class="about-stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-seedling"></i></div>
+                <strong>100% Natural</strong>
+                <span>No Artificial Wax</span>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+                <strong>50+ Farmers</strong>
+                <span>Direct Sourcing</span>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-award"></i></div>
+                <strong>Quality Graded</strong>
+                <span>Carefully Hand Sorted</span>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-face-smile"></i></div>
+                <strong>10k+ Families</strong>
+                <span>Happy Customers</span>
+              </div>
+            </div>
+
+            <div class="story-box">
+              <h3>Our Story</h3>
+              <p>It all started with a simple idea — to bring the crisp, authentic taste of mountain apples directly to families without long delays in industrial cold storages.</p>
+            </div>
+          </div>
+
+          <div class="about-gallery">
+            <img src="https://images.unsplash.com/photo-1595974482597-4b8da8879bc5?auto=format&fit=crop&w=800&q=80" alt="Apple orchard harvest" class="rounded-img">
+            <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?auto=format&fit=crop&w=800&q=80" alt="Apple trees" class="rounded-img secondary">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CONTACT VIEW -->
+    <section id="view-contact" class="page-view">
+      <div class="container contact-container">
+        <div class="contact-header">
+          <h2>Get in Touch</h2>
+          <p>Questions or bulk orders for events and gifting? We'd love to assist you!</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info-panel">
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <strong>Phone & WhatsApp</strong>
+                <p id="contact-phone-display">+91 98765 43210</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <strong>Email Us</strong>
+                <p id="contact-email-display">support@applefresh.in</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <strong>Head Office</strong>
+                <p id="contact-address-display">Sector 17, Chandigarh, India</p>
+              </div>
+            </div>
+
+            <div class="contact-photo-card">
+              <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=700&q=80" alt="Fresh red apples">
+              <div class="photo-caption">Fresh Apples Make You Happy! 🍏</div>
+            </div>
+          </div>
+
+          <div class="contact-form-panel">
+            <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <div class="form-group">
+                <label for="contact-name">Your Name *</label>
+                <input type="text" id="contact-name" placeholder="e.g. Rahul Sharma" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-email">Your Email *</label>
+                <input type="email" id="contact-email" placeholder="e.g. rahul@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-phone">Phone Number</label>
+                <input type="tel" id="contact-phone" placeholder="e.g. +91 98765 43210">
+              </div>
+              <div class="form-group">
+                <label for="contact-msg">Message *</label>
+                <textarea id="contact-msg" rows="4" placeholder="Tell us about your requirements..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary btn-full">
+                <i class="fa-regular fa-paper-plane"></i> Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- PASSWORD LOGIN MODAL -->
+  <!-- ============================================================== -->
+  <div class="modal-overlay" id="password-modal">
+    <div class="modal-box password-modal-box">
+      <button class="modal-close" onclick="closePasswordModal()">&times;</button>
+      
+      <div class="pwd-icon-circle"><i class="fa-solid fa-shield-halved"></i></div>
+      <h2>Owner Verification</h2>
+      <p style="font-size: 0.88rem; color: #64748b; margin-top: 4px;">Enter your owner password to view orders and edit prices.</p>
+
+      <form onsubmit="handlePasswordSubmit(event)">
+        <div class="pwd-input-wrap">
+          <input type="password" id="owner-pwd-input" placeholder="••••••••" required autocomplete="off">
+          <div class="pwd-error" id="pwd-error-msg">Incorrect password. Please try again.</div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-full">Unlock Owner Access</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- OWNER ADMIN DASHBOARD MODAL -->
+  <!-- ============================================================== -->
+  <div class="modal-overlay" id="owner-modal">
+    <div class="modal-box admin-modal-box">
+      <button class="modal-close" onclick="closeOwnerDashboard()">&times;</button>
+      
+      <div class="admin-header-row">
+        <div>
+          <h2>🍎 Owner Control Panel</h2>
+          <p style="font-size: 0.88rem; color: #64748b;">Manage customer orders, live prices, and your WhatsApp order number.</p>
+        </div>
+        <span class="admin-title-badge"><i class="fa-solid fa-user-shield"></i> Store Admin</span>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" id="tab-btn-orders" onclick="switchAdminTab('orders')">
+          <i class="fa-solid fa-box"></i> Orders Received <span class="tab-badge" id="tab-order-badge">0</span>
+        </button>
+        <button class="admin-tab-btn" id="tab-btn-prices" onclick="switchAdminTab('prices')">
+          <i class="fa-solid fa-tags"></i> Edit Prices & Stock
+        </button>
+        <button class="admin-tab-btn" id="tab-btn-add-product" onclick="switchAdminTab('add-product')">
+          <i class="fa-solid fa-plus-circle"></i> Add New Apple
+        </button>
+        <button class="admin-tab-btn" id="tab-btn-settings" onclick="switchAdminTab('settings')">
+          <i class="fa-solid fa-gear"></i> Store Settings
+        </button>
+      </div>
+
+      <!-- Tab 0: Orders Received Table -->
+      <div id="admin-tab-orders">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3 style="font-size:1.1rem; color:var(--dark-green);">Customer Orders Log</h3>
+          <button class="btn btn-secondary" style="font-size:0.8rem; padding:5px 10px;" onclick="clearAllOrders()">Clear Orders</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID & Time</th>
+                <th>Customer Info</th>
+                <th>Delivery Address</th>
+                <th>Items Ordered</th>
+                <th>Total & Mode</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-rows">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 1: Prices & Stock Table -->
+      <div id="admin-tab-prices" style="display: none;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Apple Variety</th>
+              <th>Price (₹/kg)</th>
+              <th>Stock Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="admin-product-rows"></tbody>
+        </table>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+          <button class="btn btn-secondary" onclick="resetToDefaultData()"><i class="fa-solid fa-rotate-left"></i> Reset Defaults</button>
+          <button class="btn btn-primary" onclick="saveAllAdminPrices()"><i class="fa-solid fa-floppy-disk"></i> Save & Close</button>
+        </div>
+      </div>
+
+      <!-- Tab 2: Add New Apple Form -->
+      <div id="admin-tab-add-product" style="display: none;">
+        <form onsubmit="handleAddNewProduct(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Apple Name *</label>
+              <input type="text" id="new-prod-name" placeholder="e.g. Kinnaur Golden Deluxe" required>
+            </div>
+            <div class="form-group">
+              <label>Variety Category *</label>
+              <input type="text" id="new-prod-variety" placeholder="e.g. Golden Delicious or Kashmiri" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (₹ per kg) *</label>
+              <input type="number" id="new-prod-price" placeholder="e.g. 135" min="10" required>
+            </div>
+            <div class="form-group">
+              <label>Origin Orchard</label>
+              <input type="text" id="new-prod-origin" placeholder="e.g. Kinnaur, Himachal Pradesh">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Image URL (Optional)</label>
+            <input type="url" id="new-prod-img" placeholder="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=600&q=80">
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fa-solid fa-plus"></i> Add Apple to Store</button>
+        </form>
+      </div>
+
+      <!-- Tab 3: Store Settings -->
+      <div id="admin-tab-settings" style="display: none;">
+        <form onsubmit="handleSaveSettings(event)">
+          <div class="form-group">
+            <label>Store Brand Name</label>
+            <input type="text" id="set-brand-name" value="AppleFresh" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>WhatsApp Number for Orders (Without + sign) *</label>
+              <input type="text" id="set-wa-num" value="916280696752" placeholder="e.g. 916280696752" required>
+              <small style="color:#64748b;">Customer orders will be sent to this WhatsApp number automatically.</small>
+            </div>
+            <div class="form-group">
+              <label>Contact Phone Display</label>
+              <input type="text" id="set-phone-disp" value="+91 98765 43210" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Free Delivery Above (₹)</label>
+              <input type="number" id="set-free-threshold" value="499" min="0" required>
+            </div>
+            <div class="form-group">
+              <label>Standard Delivery Fee (₹)</label>
+              <input type="number" id="set-delivery-fee" value="50" min="0" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full"><i class="fa-solid fa-check"></i> Save Store Settings</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRODUCT DETAIL MODAL -->
+  <div class="modal-overlay" id="product-modal">
+    <div class="modal-box product-detail-box">
+      <button class="modal-close" onclick="closeProductModal()">&times;</button>
+      
+      <div class="pdp-layout">
+        <div class="pdp-gallery">
+          <div class="pdp-main-img-wrap">
+            <img id="pdp-main-img" src="" alt="Selected Apple">
+          </div>
+          <div class="pdp-thumbnails" id="pdp-thumbnails"></div>
+        </div>
+
+        <div class="pdp-details">
+          <div class="pdp-variety-tag" id="pdp-tag">Himachali Premium</div>
+          <h2 id="pdp-title">Royal Delicious</h2>
+          <div class="pdp-price-row">
+            <span class="pdp-price" id="pdp-price">₹120 / kg</span>
+            <div class="pdp-rating">
+              <span class="stars">★★★★★</span>
+              <span class="rating-text" id="pdp-reviews">(4.8/5 • 120+ orders)</span>
+            </div>
+          </div>
+          <p class="pdp-desc" id="pdp-desc">Royal Delicious apples are known for their crisp texture and sweet aromatic taste.</p>
+
+          <ul class="pdp-bullets">
+            <li><i class="fa-solid fa-circle-check"></i> Fresh, Crisp & Juicy</li>
+            <li><i class="fa-solid fa-circle-check"></i> High in Antioxidants & Dietary Fiber</li>
+            <li><i class="fa-solid fa-circle-check"></i> 100% Naturally Grown, Non-Waxed</li>
+          </ul>
+
+          <div class="pdp-selection">
+            <label>Select Weight / Pack:</label>
+            <select id="pdp-pack-select" onchange="updatePdpPrice()">
+              <option value="1">1 kg (Standard)</option>
+              <option value="2">2 kg Box (Save ₹10)</option>
+              <option value="5">5 kg Family Crate (Best Value)</option>
+            </select>
+          </div>
+
+          <div class="pdp-actions">
+            <button class="btn btn-primary" id="pdp-cart-btn" onclick="addCurrentPdpToCart()">
+              <i class="fa-solid fa-bag-shopping"></i> Add to Cart
+            </button>
+            <button class="btn btn-whatsapp" onclick="buyCurrentPdpWhatsApp()">
+              <i class="fa-brands fa-whatsapp"></i> Buy on WhatsApp
+            </button>
+          </div>
+
+          <div class="pdp-trust-row">
+            <div><i class="fa-solid fa-truck"></i> Free Delivery Above ₹<span class="trust-threshold">499</span></div>
+            <div><i class="fa-solid fa-shield"></i> Safe Payments</div>
+            <div><i class="fa-solid fa-rotate-left"></i> Freshness Guarantee</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CART SLIDE-OVER DRAWER -->
+  <div class="drawer-overlay" id="cart-drawer">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <h3><i class="fa-solid fa-basket-shopping"></i> Your Cart</h3>
+        <button class="close-btn" onclick="closeCart()">&times;</button>
+      </div>
+
+      <div class="cart-items-list" id="cart-items-container"></div>
+
+      <div class="drawer-footer" id="cart-footer">
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">₹0</span>
+        </div>
+        <div class="summary-line">
+          <span>Delivery Charges</span>
+          <span id="cart-delivery">Free</span>
+        </div>
+        <div class="summary-line total">
+          <span>Total Amount</span>
+          <span id="cart-total">₹0</span>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="openCheckout()">
+          Proceed to Checkout <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <button class="btn btn-text btn-full" onclick="closeCart()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHECKOUT MODAL -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-box checkout-box">
+      <button class="modal-close" onclick="closeCheckout()">&times;</button>
+
+      <div class="checkout-grid">
+        <div class="checkout-form-col">
+          <h3><i class="fa-solid fa-user-check"></i> Customer Details</h3>
+          <form id="order-form" onsubmit="processOrder(event)">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="chk-name" placeholder="Enter your full name" required>
+              </div>
+              <div class="form-group">
+                <label>Mobile Number (+91) *</label>
+                <input type="tel" id="chk-phone" placeholder="10-digit mobile number" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Delivery Address *</label>
+              <input type="text" id="chk-address" placeholder="House/Flat No., Apartment, Street" required>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>City *</label>
+                <input type="text" id="chk-city" placeholder="e.g. Chandigarh, Delhi" required>
+              </div>
+              <div class="form-group">
+                <label>PIN Code *</label>
+                <input type="text" id="chk-pincode" placeholder="6-digit PIN" required>
+              </div>
+            </div>
+
+            <h3 class="payment-heading"><i class="fa-solid fa-credit-card"></i> Payment Method</h3>
+            <div class="payment-options">
+              <label class="payment-card selected">
+                <input type="radio" name="payment-method" value="UPI" checked>
+                <div class="pay-details">
+                  <span class="pay-name"><i class="fa-solid fa-mobile-screen-button"></i> UPI (Google Pay, PhonePe, Paytm)</span>
+                  <span class="pay-hint">Instant direct payment to store</span>
+                </div>
+              </label>
+
+              <label class="payment-card">
+                <input type="radio" name="payment-method" value="Cash on Delivery (COD)">
+                <div class="pay-details">
+                  <span class="pay-name"><i class="fa-solid fa-money-bill-wave"></i> Cash on Delivery (COD)</span>
+                  <span class="pay-hint">Pay in cash or UPI when fruit arrives</span>
+                </div>
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full btn-large">
+              <i class="fa-solid fa-lock"></i> Place Order (Sends to WhatsApp)
+            </button>
+            <p style="font-size:0.78rem; color:#64748b; text-align:center; margin-top:8px;">
+              ⚡ Order details will instantly route to the owner's WhatsApp and store log.
+            </p>
+          </form>
+        </div>
+
+        <div class="checkout-summary-col">
+          <h3>Order Summary</h3>
+          <div class="checkout-item-preview" id="chk-items-preview"></div>
+          <div class="checkout-totals">
+            <div class="line"><span>Subtotal</span><span id="chk-subtotal">₹0</span></div>
+            <div class="line"><span>Delivery Charges</span><span id="chk-delivery">Free</span></div>
+            <div class="line total"><span>Total Payable</span><span id="chk-total">₹0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORDER SUCCESS MODAL -->
+  <div class="modal-overlay" id="success-modal">
+    <div class="modal-box success-box text-center">
+      <div class="success-icon"><i class="fa-solid fa-circle-check"></i></div>
+      <h2>Order Placed Successfully!</h2>
+      <p style="color:#64748b;">Thank you! Your crunchy, farm-fresh apples are being prepared for dispatch.</p>
+      
+      <div class="order-id-badge" id="success-order-id">Order #AF-92817</div>
+
+      <div class="whatsapp-dispatch-card">
+        <h4><i class="fa-brands fa-whatsapp" style="color:#25d366; font-size:1.2rem;"></i> WhatsApp Confirmation Sent!</h4>
+        <p>A message with your order details has been sent to our dispatch team. If WhatsApp didn't open automatically, tap below:</p>
+        <a id="success-wa-btn" href="#" target="_blank" class="btn btn-whatsapp btn-full" style="margin-top:10px;">
+          <i class="fa-brands fa-whatsapp"></i> Open WhatsApp Message
+        </a>
+      </div>
+
+      <button class="btn btn-secondary btn-full" onclick="closeSuccessModal()">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-msg">Item added to cart! 🍎</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-grid">
+      <div class="footer-col brand-col">
+        <div class="logo light">
+          <span class="apple-icon">🍎</span>
+          <div class="logo-text">
+            <span class="brand-name footer-brand">AppleFresh</span>
+            <span class="tagline">Farm to Table Fresh</span>
+          </div>
+        </div>
+        <p class="footer-desc">Direct from Himalayan orchards to your kitchen. Handpicked with love.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="#home" onclick="navigateTo('home', event)">Home</a></li>
+          <li><a href="#shop" onclick="navigateTo('shop', event)">Shop Apples</a></li>
+          <li><a href="#about" onclick="navigateTo('about', event)">About Us</a></li>
+          <li><a href="#contact" onclick="navigateTo('contact', event)">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <ul class="footer-contact">
+          <li><i class="fa-solid fa-phone"></i> <span id="footer-phone">+91 98765 43210</span></li>
+          <li><i class="fa-solid fa-envelope"></i> orders@applefresh.in</li>
+          <li><i class="fa-solid fa-location-dot"></i> Chandigarh, India</li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Owner Access</h4>
+        <button class="btn btn-secondary" id="footer-owner-btn" style="font-size: 0.9rem; padding: 10px 18px; cursor: pointer; border-radius: 8px; font-weight: bold; background: #ffffff; color: #0d3824;" onclick="triggerOwnerAccess()">
+          <i class="fa-solid fa-lock"></i> <span id="footer-owner-btn-text">Owner Login</span>
+        </button>
+        <p class="fresh-tag" style="margin-top: 15px;">Fresh Apples • Better Living</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container bottom-row">
+        <span>© 2026 <span class="footer-brand">AppleFresh</span>. All rights reserved.</span>
+        <span>Farm-to-Door Mountain Apples</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================== -->
+  <!-- JAVASCRIPT APPLICATION -->
+  <!-- ============================================================== -->
+  <script>
+    function safeGet(key) {
+      try { return localStorage.getItem(key); } catch(e) { return null; }
+    }
+    function safeSet(key, val) {
+      try { localStorage.setItem(key, val); } catch(e) {}
+    }
+
+    const DEFAULT_PRODUCTS = [
+      {
+        id: 1,
+        name: "Royal Delicious",
+        variety: "Royal Delicious",
+        origin: "Kinnaur, Himachal",
+        price: 120,
+        unit: "/ kg",
+        inStock: true,
+        badge: "Bestseller",
+        rating: 4.9,
+        reviews: 142,
+        desc: "Royal Delicious apples are known for their crisp texture, sweet taste, and deep red color. Perfect for daily snacking.",
+        image: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=600&q=80"]
+      },
+      {
+        id: 2,
+        name: "Red Delicious",
+        variety: "Red Delicious",
+        origin: "Shimla, Himachal",
+        price: 110,
+        unit: "/ kg",
+        inStock: true,
+        badge: "Fresh Pick",
+        rating: 4.8,
+        reviews: 98,
+        desc: "Classic glossy red skin with mild sweet flavor and crunchy bite. Great for children and fresh salads.",
+        image: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?auto=format&fit=crop&w=600&q=80"]
+      },
+      {
+        id: 3,
+        name: "Golden Delicious",
+        variety: "Golden Delicious",
+        origin: "Kashmir Valley",
+        price: 130,
+        unit: "/ kg",
+        inStock: true,
+        badge: "Sweet & Tangy",
+        rating: 4.7,
+        reviews: 76,
+        desc: "Bright sunny yellow skin with exceptionally juicy, honey-sweet flesh. Outstanding for baking apple pies.",
+        image: "https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1579613832125-5d34a13ffe0a?auto=format&fit=crop&w=600&q=80"]
+      },
+      {
+        id: 4,
+        name: "Kashmiri Ambri Apples",
+        variety: "Kashmiri",
+        origin: "Shopian, Kashmir",
+        price: 150,
+        unit: "/ kg",
+        inStock: true,
+        badge: "Heritage",
+        rating: 4.9,
+        reviews: 110,
+        desc: "Legendary Kashmiri Ambri apples known for unparalleled aroma, delicate sweetness, and melting texture.",
+        image: "https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1619546813926-a78fa6372cd2?auto=format&fit=crop&w=600&q=80"]
+      },
+      {
+        id: 5,
+        name: "Himachali Gala Apples",
+        variety: "Himachali",
+        origin: "Kullu, Himachal",
+        price: 140,
+        unit: "/ kg",
+        inStock: true,
+        badge: "Juicy",
+        rating: 4.8,
+        reviews: 89,
+        desc: "Crisp, aromatic, and fine-textured with a striped blush. One of the world's most beloved snacking apples.",
+        image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?auto=format&fit=crop&w=600&q=80"]
+      },
+      {
+        id: 6,
+        name: "Premium Apple Gift Box (2 kg)",
+        variety: "Himachali",
+        origin: "Himalayas",
+        price: 350,
+        unit: "/ 2 kg",
+        inStock: true,
+        badge: "Gift Pack",
+        rating: 5.0,
+        reviews: 64,
+        desc: "Hand-selected extra large grade-A apples nestled in custom shockproof gift packaging with personalized note.",
+        image: "https://images.unsplash.com/photo-1590005354167-6da97870c757?auto=format&fit=crop&w=600&q=80",
+        thumbnails: ["https://images.unsplash.com/photo-1590005354167-6da97870c757?auto=format&fit=crop&w=600&q=80"]
+      }
+    ];
+
+    const DEFAULT_SETTINGS = {
+      brandName: "AppleFresh",
+      whatsappNumber: "916280696752",
+      phoneDisplay: "+91 62806 96752",
+      freeDeliveryThreshold: 499,
+      deliveryFee: 50
+    };
+
+    let isOwnerLoggedIn = false;
+    try {
+      isOwnerLoggedIn = sessionStorage.getItem("applefresh_owner_auth") === "true";
+    } catch(e) {}
+
+    let PRODUCTS = DEFAULT_PRODUCTS;
+    const savedP = safeGet("applefresh_products");
+    if (savedP) {
+      try { PRODUCTS = JSON.parse(savedP); } catch(e) {}
+    }
+
+    let SETTINGS = DEFAULT_SETTINGS;
+    const savedS = safeGet("applefresh_settings");
+    if (savedS) {
+      try { SETTINGS = JSON.parse(savedS); } catch(e) {}
+    }
+
+    let ORDERS = [];
+    const savedO = safeGet("applefresh_orders");
+    if (savedO) {
+      try { ORDERS = JSON.parse(savedO); } catch(e) {}
+    }
+
+    let cart = [];
+    let currentSelectedProduct = PRODUCTS[0];
+
+    // INITIALIZATION
+    window.addEventListener("DOMContentLoaded", () => {
+      updateOwnerModeUI();
+      applySettingsToUI();
+      buildVarietyFilters();
+      renderProducts();
+      updateCartUI();
+      updateOrderCounts();
+    });
+
+    // ==============================================================
+    // OWNER PASSWORD CHECK (PASSWORD: NAMAN)
+    // ==============================================================
+    function triggerOwnerAccess() {
+      if (isOwnerLoggedIn) {
+        openOwnerDashboard();
+      } else {
+        openPasswordModal();
+      }
+    }
+
+    function openPasswordModal() {
+      const modal = document.getElementById("password-modal");
+      if (modal) {
+        const inp = document.getElementById("owner-pwd-input");
+        if (inp) inp.value = "";
+        const err = document.getElementById("pwd-error-msg");
+        if (err) err.style.display = "none";
+        
+        modal.classList.add("open");
+        modal.style.display = "flex";
+        if (inp) setTimeout(() => inp.focus(), 100);
+      } else {
+        const entered = prompt("Enter Owner Password:");
+        if (entered && entered.trim().toUpperCase() === "NAMAN") {
+          unlockOwnerMode();
+        } else if (entered) {
+          alert("Incorrect password!");
+        }
+      }
+    }
+
+    function closePasswordModal() {
+      const modal = document.getElementById("password-modal");
+      if (modal) {
+        modal.classList.remove("open");
+        modal.style.display = "none";
+      }
+    }
+
+    function handlePasswordSubmit(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById("owner-pwd-input");
+      const enteredPwd = (input ? input.value : "").trim();
+      
+      if (enteredPwd.toUpperCase() === "NAMAN") {
+        unlockOwnerMode();
+      } else {
+        const err = document.getElementById("pwd-error-msg");
+        if (err) err.style.display = "block";
+        if (input) input.select();
+      }
+    }
+
+    function unlockOwnerMode() {
+      isOwnerLoggedIn = true;
+      try { sessionStorage.setItem("applefresh_owner_auth", "true"); } catch(e) {}
+      closePasswordModal();
+      updateOwnerModeUI();
+      renderProducts();
+      showToast("Welcome Naman! Owner Mode Unlocked 🍎");
+    }
+
+    function lockOwnerMode() {
+      isOwnerLoggedIn = false;
+      try { sessionStorage.removeItem("applefresh_owner_auth"); } catch(e) {}
+      updateOwnerModeUI();
+      renderProducts();
+      showToast("Owner Mode Locked. Switched to customer view! 🔒");
+    }
+
+    function updateOwnerModeUI() {
+      const banner = document.getElementById("owner-banner");
+      const topLoginBtn = document.getElementById("top-owner-login-btn");
+      const footerBtnText = document.getElementById("footer-owner-btn-text");
+      const popularSub = document.getElementById("popular-sub");
+
+      if (isOwnerLoggedIn) {
+        if (banner) banner.classList.add("active");
+        if (topLoginBtn) topLoginBtn.innerHTML = '<i class="fa-solid fa-lock-open"></i> Owner (Logged In)';
+        if (footerBtnText) footerBtnText.innerText = "Open Owner Dashboard";
+        if (popularSub) popularSub.innerText = "Owner Mode: Type directly in any price box to update it live.";
+      } else {
+        if (banner) banner.classList.remove("active");
+        if (topLoginBtn) topLoginBtn.innerHTML = '<i class="fa-solid fa-key"></i> Owner Login';
+        if (footerBtnText) footerBtnText.innerText = "Owner Login";
+        if (popularSub) popularSub.innerText = "Choose from a variety of fresh and premium apple varieties.";
+      }
+    }
+
+    // ==============================================================
+    // STORE LOGIC & RENDERING
+    // ==============================================================
+    function applySettingsToUI() {
+      const brandTitle = document.getElementById("brand-title");
+      if (brandTitle) brandTitle.innerText = SETTINGS.brandName;
+      document.querySelectorAll(".footer-brand").forEach(el => el.innerText = SETTINGS.brandName);
+      document.querySelectorAll(".trust-threshold").forEach(el => el.innerText = SETTINGS.freeDeliveryThreshold);
+      
+      const phoneDisp = document.getElementById("contact-phone-display");
+      if (phoneDisp) phoneDisp.innerText = SETTINGS.phoneDisplay;
+      const footerPhone = document.getElementById("footer-phone");
+      if (footerPhone) footerPhone.innerText = SETTINGS.phoneDisplay;
+      
+      const waLink = `https://wa.me/${SETTINGS.whatsappNumber}?text=${encodeURIComponent("Hi! I would like to order fresh apples from " + SETTINGS.brandName)}`;
+      const heroWa = document.getElementById("hero-wa-link");
+      if (heroWa) heroWa.href = waLink;
+    }
+
+    function buildVarietyFilters() {
+      const container = document.getElementById("variety-filters-container");
+      if (!container) return;
+      const varieties = [...new Set(PRODUCTS.map(p => p.variety))];
+      container.innerHTML = varieties.map(v => `
+        <label class="filter-option">
+          <input type="checkbox" value="${v}" onchange="applyFilters()" class="variety-cb">
+          <span>${v}</span>
+        </label>
+      `).join("");
+    }
+
+    function navigateTo(pageId, event) {
+      if (event) event.preventDefault();
+      document.querySelectorAll(".page-view").forEach(view => view.classList.remove("active"));
+      const targetView = document.getElementById("view-" + pageId);
+      if (targetView) targetView.classList.add("active");
+
+      document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+      const activeLink = document.querySelector(`a[href="#${pageId}"]`);
+      if (activeLink) activeLink.classList.add("active");
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProductPrice(prodId, newPriceVal) {
+      if (!isOwnerLoggedIn) return;
+      const prod = PRODUCTS.find(p => p.id === prodId);
+      if (!prod) return;
+      const numPrice = Number(newPriceVal);
+      if (isNaN(numPrice) || numPrice <= 0) {
+        showToast("Please enter a valid price!");
+        return;
+      }
+
+      prod.price = numPrice;
+      safeSet("applefresh_products", JSON.stringify(PRODUCTS));
+      updateCartUI();
+      showToast(`Updated ${prod.name} price to ₹${numPrice}! 🍏`);
+    }
+
+    function toggleStockStatus(prodId) {
+      if (!isOwnerLoggedIn) return;
+      const prod = PRODUCTS.find(p => p.id === prodId);
+      if (!prod) return;
+      prod.inStock = !prod.inStock;
+      safeSet("applefresh_products", JSON.stringify(PRODUCTS));
+      renderProducts();
+      showToast(`${prod.name} is now ${prod.inStock ? 'IN STOCK' : 'OUT OF STOCK'}`);
+    }
+
+
+    function renderProducts(itemsToRender = PRODUCTS) {
+      const homeGrid = document.getElementById("home-product-grid");
+      const shopGrid = document.getElementById("shop-product-grid");
+
+      const createCardHTML = (prod) => {
+        let priceRowHTML = "";
+        if (isOwnerLoggedIn) {
+          priceRowHTML = `
+            <div class="product-price-row owner-edit-box">
+              <div style="display:flex; align-items:center; gap:4px;">
+                <span style="font-weight:800; color:var(--dark-green);">₹</span>
+                <input type="number" 
+                       class="price-inline-input" 
+                       value="${prod.price}" 
+                       min="1" 
+                       title="Owner: Type to change price" 
+                       onchange="updateProductPrice(${prod.id}, this.value)"
+                       onclick="event.stopPropagation()">
+                <span class="unit-tag">${prod.unit}</span>
+              </div>
+              <button class="stock-badge-toggle ${prod.inStock ? 'in-stock' : 'out-stock'}" 
+                      onclick="toggleStockStatus(${prod.id})" 
+                      title="Click to toggle stock status">
+                ${prod.inStock ? '● In Stock' : '✕ Sold Out'}
+              </button>
+            </div>
+          `;
+        } else {
+          priceRowHTML = `
+            <div class="product-price-row">
+              <span class="price-tag">₹${prod.price} <span class="unit-tag">${prod.unit}</span></span>
+              ${!prod.inStock ? '<span class="customer-sold-out">Sold Out</span>' : ''}
+            </div>
+          `;
+        }
+
+        return `
+          <div class="product-card" style="position:relative;">
+            <span class="card-badge">${prod.badge}</span>
+            ${isOwnerLoggedIn ? `
+              <button class="btn-delete-product" onclick="event.stopPropagation(); deleteProduct(${prod.id});" title="Delete this product">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            ` : ''}
+            <img src="${prod.image}" alt="${prod.name}" class="product-thumb" onclick="openProductModal(${prod.id})">
+            <div class="product-info">
+              <h3 class="product-name" onclick="openProductModal(${prod.id})">${prod.name}</h3>
+              <div class="product-rating">
+                <span>★★★★★</span>
+                <span class="count">(${prod.rating})</span>
+              </div>
+              
+              ${priceRowHTML}
+
+              ${prod.inStock ? `
+                <button class="btn-add-cart" onclick="addToCart(${prod.id})">
+                  <i class="fa-solid fa-basket-shopping"></i> Add to Cart
+                </button>
+              ` : `
+                <button class="btn-add-cart out-of-stock" disabled>
+                  Out of Stock
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      };
+
+      if (homeGrid) {
+        homeGrid.innerHTML = PRODUCTS.slice(0, 4).map(createCardHTML).join("");
+      }
+      if (shopGrid) {
+        shopGrid.innerHTML = itemsToRender.map(createCardHTML).join("");
+        const lbl = document.getElementById("product-count-label");
+        if (lbl) lbl.innerText = `Showing ${itemsToRender.length} apple ${itemsToRender.length === 1 ? 'variety' : 'varieties'}`;
+      }
+    }
+
+    function applyFilters() {
+      const priceFilter = document.querySelector('input[name="price-filter"]:checked').value;
+      const checkedVarieties = Array.from(document.querySelectorAll('.variety-cb:checked')).map(cb => cb.value);
+      const sortBy = document.getElementById("sort-select").value;
+
+      let filtered = PRODUCTS.filter(prod => {
+        let matchesPrice = true;
+        if (priceFilter === "under-100") matchesPrice = prod.price < 100;
+        else if (priceFilter === "100-150") matchesPrice = prod.price >= 100 && prod.price <= 150;
+        else if (priceFilter === "150-200") matchesPrice = prod.price > 150 && prod.price <= 200;
+        else if (priceFilter === "above-200") matchesPrice = prod.price > 200;
+
+        let matchesVariety = true;
+        if (checkedVarieties.length > 0) {
+          matchesVariety = checkedVarieties.some(v => prod.variety.toLowerCase().includes(v.toLowerCase()));
+        }
+
+        return matchesPrice && matchesVariety;
+      });
+
+      if (sortBy === "price-low") filtered.sort((a,b) => a.price - b.price);
+      else if (sortBy === "price-high") filtered.sort((a,b) => b.price - a.price);
+      else if (sortBy === "rating") filtered.sort((a,b) => b.rating - a.rating);
+
+      renderProducts(filtered);
+    }
+
+    function resetFilters() {
+      document.querySelector('input[name="price-filter"][value="all"]').checked = true;
+      document.querySelectorAll('.variety-cb').forEach(cb => cb.checked = false);
+      document.getElementById("sort-select").value = "popularity";
+      renderProducts(PRODUCTS);
+    }
+
+    // ==============================================================
+    // OWNER ADMIN DASHBOARD & ORDERS LOG
+    // ==============================================================
+    function openOwnerDashboard(defaultTab = 'orders') {
+      if (!isOwnerLoggedIn) {
+        openPasswordModal();
+        return;
+      }
+      switchAdminTab(defaultTab);
+      renderAdminOrdersTable();
+      renderAdminProductsTable();
+
+      document.getElementById("set-brand-name").value = SETTINGS.brandName;
+      document.getElementById("set-wa-num").value = SETTINGS.whatsappNumber;
+      document.getElementById("set-phone-disp").value = SETTINGS.phoneDisplay;
+      document.getElementById("set-free-threshold").value = SETTINGS.freeDeliveryThreshold;
+      document.getElementById("set-delivery-fee").value = SETTINGS.deliveryFee;
+
+      const modal = document.getElementById("owner-modal");
+      if (modal) {
+        modal.classList.add("open");
+        modal.style.display = "flex";
+      }
+    }
+
+    function closeOwnerDashboard() {
+      const modal = document.getElementById("owner-modal");
+      if (modal) {
+        modal.classList.remove("open");
+        modal.style.display = "none";
+      }
+    }
+
+    function switchAdminTab(tabName) {
+      document.querySelectorAll(".admin-tab-btn").forEach(btn => btn.classList.remove("active"));
+      const activeBtn = document.getElementById("tab-btn-" + tabName);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      document.getElementById("admin-tab-orders").style.display = tabName === 'orders' ? 'block' : 'none';
+      document.getElementById("admin-tab-prices").style.display = tabName === 'prices' ? 'block' : 'none';
+      document.getElementById("admin-tab-add-product").style.display = tabName === 'add-product' ? 'block' : 'none';
+      document.getElementById("admin-tab-settings").style.display = tabName === 'settings' ? 'block' : 'none';
+
+      if (tabName === 'orders') renderAdminOrdersTable();
+    }
+
+    function updateOrderCounts() {
+      const count = ORDERS.length;
+      const badge1 = document.getElementById("tab-order-badge");
+      const badge2 = document.getElementById("owner-order-count");
+      if (badge1) badge1.innerText = count;
+      if (badge2) badge2.innerText = count;
+    }
+
+    function renderAdminOrdersTable() {
+      updateOrderCounts();
+      const tbody = document.getElementById("admin-orders-rows");
+      if (!tbody) return;
+
+      if (ORDERS.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align:center; padding:30px; color:#94a3b8;">
+              <i class="fa-solid fa-inbox" style="font-size:2.5rem; color:#cbd5e1; margin-bottom:8px; display:block;"></i>
+              No customer orders received yet.<br>
+              <small>Try placing a test order on the site to see it appear here live!</small>
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = ORDERS.map(order => {
+        const itemsSummary = order.items.map(i => `${i.name} (${i.quantity} kg)`).join(", ");
+        const statusClass = order.status === 'Delivered' ? 'delivered' : (order.status === 'Dispatched' ? 'dispatched' : 'pending');
+
+        return `
+          <tr>
+            <td>
+              <strong>${order.orderNum}</strong><br>
+              <small style="color:#64748b;">${order.date}</small>
+            </td>
+            <td>
+              <strong>${order.customer.name}</strong><br>
+              <a href="tel:${order.customer.phone}" style="color:var(--primary-green); font-weight:600;"><i class="fa-solid fa-phone"></i> ${order.customer.phone}</a>
+            </td>
+            <td>
+              <small>${order.customer.address}, ${order.customer.city} - ${order.customer.pincode}</small>
+            </td>
+            <td>
+              <span style="font-size:0.85rem;">${itemsSummary}</span>
+            </td>
+            <td>
+              <strong>₹${order.total}</strong><br>
+              <small style="color:#64748b;">${order.paymentMethod}</small>
+            </td>
+            <td>
+              <select onchange="updateOrderStatus('${order.orderNum}', this.value)" style="padding:4px 8px; border-radius:6px; font-size:0.8rem; font-weight:700;">
+                <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>⏳ Pending</option>
+                <option value="Dispatched" ${order.status === 'Dispatched' ? 'selected' : ''}>🚚 Dispatched</option>
+                <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>✅ Delivered</option>
+              </select>
+            </td>
+            <td>
+              <a href="https://wa.me/91${order.customer.phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent("Hi " + order.customer.name + "! Updating you regarding your AppleFresh order " + order.orderNum)}" 
+                 target="_blank" 
+                 class="btn btn-whatsapp" 
+                 style="padding:5px 9px; font-size:0.78rem;" 
+                 title="Chat with Customer">
+                <i class="fa-brands fa-whatsapp"></i> Chat
+              </a>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function updateOrderStatus(orderNum, newStatus) {
+      const order = ORDERS.find(o => o.orderNum === orderNum);
+      if (order) {
+        order.status = newStatus;
+        safeSet("applefresh_orders", JSON.stringify(ORDERS));
+        showToast(`Order ${orderNum} marked as ${newStatus}!`);
+      }
+    }
+
+    function clearAllOrders() {
+      if (confirm("Are you sure you want to clear the orders log?")) {
+        ORDERS = [];
+        safeSet("applefresh_orders", JSON.stringify(ORDERS));
+        renderAdminOrdersTable();
+        showToast("Orders history cleared.");
+      }
+    }
+
+    function renderAdminProductsTable() {
+      const tbody = document.getElementById("admin-product-rows");
+      if (!tbody) return;
+      tbody.innerHTML = PRODUCTS.map(prod => `
+        <tr>
+          <td>
+            <strong>${prod.name}</strong><br>
+            <span style="font-size: 0.78rem; color: #64748b;">${prod.origin}</span>
+          </td>
+          <td>
+            ₹ <input type="number" class="admin-price-input" id="admin-input-price-${prod.id}" value="${prod.price}" min="10">
+          </td>
+          <td>
+            <button class="stock-badge-toggle ${prod.inStock ? 'in-stock' : 'out-stock'}" onclick="toggleStockStatus(${prod.id}); renderAdminProductsTable();">
+              ${prod.inStock ? 'In Stock' : 'Sold Out'}
+            </button>
+          </td>
+          <td>
+            <button style="background:none; border:none; color:#ef4444; font-size:1.1rem; cursor:pointer;" onclick="deleteProduct(${prod.id})" title="Delete Apple">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function saveAllAdminPrices() {
+      PRODUCTS.forEach(prod => {
+        const inp = document.getElementById(`admin-input-price-${prod.id}`);
+        if (inp && Number(inp.value) > 0) {
+          prod.price = Number(inp.value);
+        }
+      });
+      safeSet("applefresh_products", JSON.stringify(PRODUCTS));
+      renderProducts();
+      closeOwnerDashboard();
+      showToast("Prices saved successfully! ✅");
+    }
+
+    function handleAddNewProduct(e) {
+      e.preventDefault();
+      const name = document.getElementById("new-prod-name").value;
+      const variety = document.getElementById("new-prod-variety").value;
+      const price = Number(document.getElementById("new-prod-price").value);
+      const origin = document.getElementById("new-prod-origin").value || "Himalayan Orchards";
+      const img = document.getElementById("new-prod-img").value || "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=600&q=80";
+
+      PRODUCTS.push({
+        id: Date.now(),
+        name: name,
+        variety: variety,
+        origin: origin,
+        price: price,
+        unit: "/ kg",
+        inStock: true,
+        badge: "New Arrival",
+        rating: 5.0,
+        reviews: 1,
+        desc: "Farm-fresh mountain apple with natural sweetness and crunch.",
+        image: img,
+        thumbnails: [img]
+      });
+
+      safeSet("applefresh_products", JSON.stringify(PRODUCTS));
+      buildVarietyFilters();
+      renderProducts();
+      closeOwnerDashboard();
+      showToast(`Added ${name} to store! 🍏`);
+      e.target.reset();
+    }
+
+    function deleteProduct(prodId) {
+      prodId = Number(prodId);
+      const prod = PRODUCTS.find(p => Number(p.id) === prodId);
+      if (!prod) { showToast("Product not found!"); return; }
+      // Show custom confirm dialog (browser confirm() blocked on file://)
+      showDeleteConfirm(prod.name, function() {
+        PRODUCTS = PRODUCTS.filter(p => Number(p.id) !== prodId);
+        safeSet("applefresh_products", JSON.stringify(PRODUCTS));
+        buildVarietyFilters();
+        renderProducts();
+        renderAdminProductsTable();
+        showToast(`"${prod.name}" deleted! 🗑️`);
+      });
+    }
+
+    function showDeleteConfirm(productName, onConfirm) {
+      // Create overlay
+      const overlay = document.createElement("div");
+      overlay.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;";
+      overlay.innerHTML = `
+        <div style="background:#fff;border-radius:16px;padding:32px 28px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+          <div style="font-size:2.5rem;margin-bottom:12px;">🗑️</div>
+          <h3 style="font-size:1.2rem;color:#0d3824;margin-bottom:8px;">Delete Product?</h3>
+          <p style="color:#64748b;font-size:0.92rem;margin-bottom:24px;">Are you sure you want to remove <strong>"${productName}"</strong> from your store? This cannot be undone.</p>
+          <div style="display:flex;gap:12px;justify-content:center;">
+            <button id="del-cancel-btn" style="flex:1;padding:12px;background:#f1f5f9;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;color:#334155;">Cancel</button>
+            <button id="del-confirm-btn" style="flex:1;padding:12px;background:#dc2626;border:none;border-radius:10px;font-size:0.95rem;font-weight:600;cursor:pointer;color:#fff;">Yes, Delete</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+      document.getElementById("del-cancel-btn").onclick = () => document.body.removeChild(overlay);
+      document.getElementById("del-confirm-btn").onclick = () => { document.body.removeChild(overlay); onConfirm(); };
+    }
+
+    function handleSaveSettings(e) {
+      e.preventDefault();
+      SETTINGS.brandName = document.getElementById("set-brand-name").value;
+      SETTINGS.whatsappNumber = document.getElementById("set-wa-num").value;
+      SETTINGS.phoneDisplay = document.getElementById("set-phone-disp").value;
+      SETTINGS.freeDeliveryThreshold = Number(document.getElementById("set-free-threshold").value);
+      SETTINGS.deliveryFee = Number(document.getElementById("set-delivery-fee").value);
+
+      safeSet("applefresh_settings", JSON.stringify(SETTINGS));
+      applySettingsToUI();
+      closeOwnerDashboard();
+      showToast("Store settings saved! 🎉");
+    }
+
+    function resetToDefaultData() {
+      if (confirm("Reset all prices and products back to original defaults?")) {
+        PRODUCTS = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+        SETTINGS = JSON.parse(JSON.stringify(DEFAULT_SETTINGS));
+        try {
+          localStorage.removeItem("applefresh_products");
+          localStorage.removeItem("applefresh_settings");
+        } catch(e) {}
+        applySettingsToUI();
+        buildVarietyFilters();
+        renderProducts();
+        renderAdminProductsTable();
+        showToast("Reset to initial defaults.");
+      }
+    }
+
+    // ==============================================================
+    // PRODUCT DETAIL MODAL
+    // ==============================================================
+    function openProductModal(prodId) {
+      const prod = PRODUCTS.find(p => p.id === prodId) || PRODUCTS[0];
+      currentSelectedProduct = prod;
+
+      document.getElementById("pdp-main-img").src = prod.image;
+      document.getElementById("pdp-title").innerText = prod.name;
+      document.getElementById("pdp-tag").innerText = prod.origin;
+      document.getElementById("pdp-price").innerText = `₹${prod.price} ${prod.unit}`;
+      document.getElementById("pdp-reviews").innerText = `(${prod.rating}/5 • ${prod.reviews}+ orders)`;
+      document.getElementById("pdp-desc").innerText = prod.desc;
+
+      const packSelect = document.getElementById("pdp-pack-select");
+      packSelect.innerHTML = `
+        <option value="1">1 kg (₹${prod.price})</option>
+        <option value="2">2 kg Box (₹${(prod.price * 2) - 10} - Save ₹10)</option>
+        <option value="5">5 kg Family Crate (₹${(prod.price * 5) - 50} - Save ₹50)</option>
+      `;
+
+      const thumbContainer = document.getElementById("pdp-thumbnails");
+      thumbContainer.innerHTML = (prod.thumbnails || [prod.image]).map((t, idx) => `
+        <img src="${t}" class="pdp-thumb ${idx === 0 ? 'active' : ''}" onclick="switchPdpImg('${t}', this)">
+      `).join("");
+
+      const cartBtn = document.getElementById("pdp-cart-btn");
+      if (!prod.inStock) {
+        cartBtn.disabled = true;
+        cartBtn.innerText = "Out of Stock";
+      } else {
+        cartBtn.disabled = false;
+        cartBtn.innerHTML = '<i class="fa-solid fa-bag-shopping"></i> Add to Cart';
+      }
+
+      const modal = document.getElementById("product-modal");
+      modal.classList.add("open");
+      modal.style.display = "flex";
+    }
+
+    function switchPdpImg(src, thumbEl) {
+      document.getElementById("pdp-main-img").src = src;
+      document.querySelectorAll(".pdp-thumb").forEach(t => t.classList.remove("active"));
+      thumbEl.classList.add("active");
+    }
+
+    function closeProductModal() {
+      const modal = document.getElementById("product-modal");
+      modal.classList.remove("open");
+      modal.style.display = "none";
+    }
+
+    function updatePdpPrice() {
+      const multiplier = parseInt(document.getElementById("pdp-pack-select").value);
+      let calculatedPrice = currentSelectedProduct.price * multiplier;
+      if (multiplier === 2) calculatedPrice -= 10;
+      if (multiplier === 5) calculatedPrice -= 50;
+      document.getElementById("pdp-price").innerText = `₹${calculatedPrice} (${multiplier} kg)`;
+    }
+
+    function addCurrentPdpToCart() {
+      const multiplier = parseInt(document.getElementById("pdp-pack-select").value);
+      addToCart(currentSelectedProduct.id, multiplier);
+      closeProductModal();
+    }
+
+    function buyCurrentPdpWhatsApp() {
+      const multiplier = parseInt(document.getElementById("pdp-pack-select").value);
+      const text = `Hi ${SETTINGS.brandName}! I would like to order ${multiplier} kg of ${currentSelectedProduct.name}.`;
+      window.open(`https://wa.me/${SETTINGS.whatsappNumber}?text=${encodeURIComponent(text)}`, "_blank");
+    }
+
+    // ==============================================================
+    // CART OPERATIONS
+    // ==============================================================
+    function addToCart(prodId, qty = 1) {
+      const prod = PRODUCTS.find(p => p.id === prodId);
+      if (!prod || !prod.inStock) return;
+
+      const existing = cart.find(item => item.id === prodId);
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({ ...prod, quantity: qty });
+      }
+
+      updateCartUI();
+      showToast(`Added ${prod.name} to cart! 🍏`);
+    }
+
+    function changeQuantity(prodId, delta) {
+      const item = cart.find(i => i.id === prodId);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.id !== prodId);
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(prodId) {
+      cart = cart.filter(i => i.id !== prodId);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.getElementById("cart-count").innerText = totalCount;
+
+      const container = document.getElementById("cart-items-container");
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px 10px; color: #94a3b8;">
+            <i class="fa-solid fa-basket-shopping" style="font-size: 3rem; margin-bottom: 12px; color: #cbd5e1;"></i>
+            <p>Your basket is currently empty.</p>
+            <button class="btn btn-outline" style="margin-top: 15px;" onclick="closeCart(); navigateTo('shop');">Start Shopping</button>
+          </div>
+        `;
+        document.getElementById("cart-subtotal").innerText = "₹0";
+        document.getElementById("cart-total").innerText = "₹0";
+        return;
+      }
+
+      container.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img src="${item.image}" class="cart-item-img" alt="${item.name}">
+          <div class="cart-item-info">
+            <div class="cart-item-title">${item.name}</div>
+            <div class="cart-item-price">₹${item.price} / kg</div>
+            <div class="qty-controls">
+              <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+              <span class="qty-val">${item.quantity} kg</span>
+              <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+            </div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
+            <i class="fa-regular fa-trash-can"></i>
+          </button>
+        </div>
+      `).join("");
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const delivery = subtotal > SETTINGS.freeDeliveryThreshold || subtotal === 0 ? 0 : SETTINGS.deliveryFee;
+      const total = subtotal + delivery;
+
+      document.getElementById("cart-subtotal").innerText = `₹${subtotal}`;
+      document.getElementById("cart-delivery").innerText = delivery === 0 ? "Free" : `₹${delivery}`;
+      document.getElementById("cart-total").innerText = `₹${total}`;
+    }
+
+    function openCart() {
+      const drawer = document.getElementById("cart-drawer");
+      drawer.classList.add("open");
+      drawer.style.display = "flex";
+    }
+
+    function closeCart() {
+      const drawer = document.getElementById("cart-drawer");
+      drawer.classList.remove("open");
+      drawer.style.display = "none";
+    }
+
+    function openCheckout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty! Please add some apples first.");
+        return;
+      }
+      closeCart();
+
+      const previewContainer = document.getElementById("chk-items-preview");
+      previewContainer.innerHTML = cart.map(i => `
+        <div class="chk-item-row">
+          <span>${i.name} × ${i.quantity} kg</span>
+          <strong>₹${i.price * i.quantity}</strong>
+        </div>
+      `).join("");
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const delivery = subtotal > SETTINGS.freeDeliveryThreshold ? 0 : SETTINGS.deliveryFee;
+      const total = subtotal + delivery;
+
+      document.getElementById("chk-subtotal").innerText = `₹${subtotal}`;
+      document.getElementById("chk-delivery").innerText = delivery === 0 ? "Free" : `₹${delivery}`;
+      document.getElementById("chk-total").innerText = `₹${total}`;
+
+      const modal = document.getElementById("checkout-modal");
+      modal.classList.add("open");
+      modal.style.display = "flex";
+    }
+
+    function closeCheckout() {
+      const modal = document.getElementById("checkout-modal");
+      modal.classList.remove("open");
+      modal.style.display = "none";
+    }
+
+    // ==============================================================
+    // DUAL ORDER PROCESSING: WHATSAPP + OWNER LOG
+    // ==============================================================
+    function processOrder(e) {
+      e.preventDefault();
+      const name = document.getElementById("chk-name").value.trim();
+      const phone = document.getElementById("chk-phone").value.trim();
+      const address = document.getElementById("chk-address").value.trim();
+      const city = document.getElementById("chk-city").value.trim();
+      const pincode = document.getElementById("chk-pincode").value.trim();
+      const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const delivery = subtotal > SETTINGS.freeDeliveryThreshold ? 0 : SETTINGS.deliveryFee;
+      const total = subtotal + delivery;
+
+      const orderNum = "AF-" + Math.floor(10000 + Math.random() * 90000);
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute:'2-digit' });
+
+      // 1. SAVE ORDER TO OWNER DASHBOARD
+      const orderData = {
+        orderNum: orderNum,
+        date: dateStr,
+        customer: { name, phone, address, city, pincode },
+        items: [...cart],
+        subtotal: subtotal,
+        delivery: delivery,
+        total: total,
+        paymentMethod: paymentMethod,
+        status: "Pending"
+      };
+
+      ORDERS.unshift(orderData);
+      safeSet("applefresh_orders", JSON.stringify(ORDERS));
+      updateOrderCounts();
+
+      // 2. COMPOSE AUTOMATED WHATSAPP MESSAGE FOR OWNER
+      const itemsListText = cart.map(i => `• ${i.name} (${i.quantity} kg) - ₹${i.price * i.quantity}`).join("\n");
+      const waText = 
+`🍎 *NEW ORDER: ${orderNum}*
+Store: *${SETTINGS.brandName}*
+Date: ${dateStr}
+
+👤 *Customer Details:*
+• Name: ${name}
+• Phone: +91 ${phone}
+• Address: ${address}, ${city} (PIN: ${pincode})
+
+🛒 *Items Ordered:*
+${itemsListText}
+
+💰 *Subtotal:* ₹${subtotal}
+🚚 *Delivery:* ${delivery === 0 ? "Free" : "₹" + delivery}
+💳 *Total Amount:* ₹${total}
+💵 *Payment Choice:* ${paymentMethod}
+
+Please confirm my order and share delivery dispatch timing. Thank you!`;
+
+      const waUrl = `https://wa.me/${SETTINGS.whatsappNumber}?text=${encodeURIComponent(waText)}`;
+
+      // 3. SHOW CONFIRMATION MODAL & OPEN WHATSAPP
+      closeCheckout();
+      document.getElementById("success-order-id").innerText = `Order #${orderNum}`;
+      document.getElementById("success-wa-btn").href = waUrl;
+
+      const modal = document.getElementById("success-modal");
+      modal.classList.add("open");
+      modal.style.display = "flex";
+
+      // Clear Cart
+      cart = [];
+      updateCartUI();
+
+      // Automatically open WhatsApp in new tab
+      try {
+        window.open(waUrl, "_blank");
+      } catch(err) {
+        console.warn("Popup blocked, fallback button available.");
+      }
+    }
+
+    function closeSuccessModal() {
+      const modal = document.getElementById("success-modal");
+      modal.classList.remove("open");
+      modal.style.display = "none";
+      navigateTo("home");
+    }
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      alert("Thank you! Your message has been received.");
+      document.getElementById("contact-form").reset();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      document.getElementById("toast-msg").innerText = msg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    function focusSearch() {
+      navigateTo('shop');
+    }
+  </script>
+</body>
+</html>
